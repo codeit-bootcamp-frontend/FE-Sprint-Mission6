@@ -22,14 +22,6 @@ const inputStyle = css`
   }
 `;
 
-const InputContainer = styled.div`
-  margin-bottom: 16px;
-
-  @media ${({ theme }) => theme.mediaQuery.tablet} {
-    margin-bottom: 24px;
-  }
-`;
-
 const Label = styled.label`
   display: block;
   font-size: 14px;
@@ -53,14 +45,14 @@ const TextArea = styled.textarea`
 
 function InputItem({ id, label, placeholder, isTextArea }) {
   return (
-    <InputContainer>
+    <div>
       <Label htmlFor={id}>{label}</Label>
       {isTextArea ? (
         <TextArea id={id} placeholder={placeholder} />
       ) : (
         <InputField id={id} placeholder={placeholder} />
       )}
-    </InputContainer>
+    </div>
   );
 }
 
