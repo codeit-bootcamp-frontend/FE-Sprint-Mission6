@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Label } from "./InputItem";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { ReactComponent as PlusIcon } from "../../assets/images/icons/ic_plus.svg";
 
 const ImageUploadContainer = styled.div`
@@ -16,27 +16,12 @@ const ImageUploadContainer = styled.div`
   }
 `;
 
-const squareSize = "calc(50% - 4px)";
-
-// file input과 연관 짓기 위해 버튼이 대신 label로 설정
-const UploadButton = styled.label`
-  background-color: ${({ theme }) => theme.colors.gray[1]};
-  color: ${({ theme }) => theme.colors.gray[0]};
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  border-radius: 12px;
-  font-size: 16px;
-  width: ${squareSize};
+const squareStyles = css`
+  // 작은 화면에서는 max-width가 되기 전까지는 UploadButton과 ImagePreview가 각각 gap을 포함해 컨테이너 너비의 절반을 차지하도록 함
+  width: calc(50% - 4px);
   max-width: 200px;
   aspect-ratio: 1 / 1; // 정사각형 비율 유지
-  cursor: pointer; // 버튼이 아닌 label을 사용한 경우 별도로 추가해 주세요
-
-  &:hover {
-    background-color: ${({ theme }) => theme.colors.gray[2]};
-  }
+  border-radius: 12px;
 
   @media ${({ theme }) => theme.mediaQuery.tablet} {
     width: 162px;
@@ -47,22 +32,31 @@ const UploadButton = styled.label`
   }
 `;
 
+// file input과 연관 짓기 위해 버튼이 대신 label로 설정
+const UploadButton = styled.label`
+  background-color: ${({ theme }) => theme.colors.gray[1]};
+  color: ${({ theme }) => theme.colors.gray[0]};
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  font-size: 16px;
+  cursor: pointer; // 버튼이 아닌 label을 사용한 경우 별도로 추가해 주세요
+
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.gray[2]};
+  }
+
+  ${squareStyles}
+`;
+
 const ImagePreview = styled.div`
   background-image: url(${({ src }) => src});
   background-size: cover;
   background-position: center;
-  border-radius: 12px;
-  width: ${squareSize};
-  max-width: 200px;
-  aspect-ratio: 1 / 1;
 
-  @media ${({ theme }) => theme.mediaQuery.tablet} {
-    width: 162px;
-  }
-
-  @media ${({ theme }) => theme.mediaQuery.desktop} {
-    width: 282px;
-  }
+  ${squareStyles}
 `;
 
 // 브라우저 기본 '파일 선택' 버튼 대신 커스텀 버튼을 사용하기 위해 file input을 숨김 처리
@@ -87,7 +81,7 @@ function ImageUpload({ title }) {
       {title && <Label>{title}</Label>}
 
       <ImageUploadContainer>
-        {/* HiddenFileInput의 id와 label의 htmlFor 값 매칭 */}
+        {/* HiddenFileInput의 id와 label의 htmlFor 값을 매칭해 주세요 */}
         <UploadButton htmlFor="image-upload">
           <PlusIcon />
           이미지 등록
