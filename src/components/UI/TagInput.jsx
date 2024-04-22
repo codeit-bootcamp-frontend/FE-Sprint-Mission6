@@ -8,16 +8,25 @@ const TagButtonsSection = styled.div`
   display: flex;
   gap: 12px;
   margin-top: 12px;
+  flex-wrap: wrap; // 태그가 길어지면 다음 줄로 넘어가도록 함
 `;
 
 const Tag = styled(FlexContainer)`
   background-color: ${({ theme }) => theme.colors.gray[2]};
   color: ${({ theme }) => theme.colors.black};
-  padding: 14px 13px 14px 16px;
+  padding: 14px 14px 14px 16px;
   border-radius: 999px;
   min-width: 100px;
+`;
+
+const TagText = styled.span`
   font-size: 16px;
   line-height: 24px;
+  max-width: calc(100% - 28px); // DeleteButton 너비 및 margin을 제외한 공간
+  /* 태그의 텍스트가 너무 길어 한 줄 내에 표시하기 어려운 경우 말줌임 처리 */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 `;
 
 const DeleteButton = styled.button`
@@ -28,6 +37,7 @@ const DeleteButton = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-left: 8px; // 태그 텍스트와 삭제 버튼 사이 공간 확보
 
   &:hover {
     background-color: ${({ theme }) => theme.colors.blue[0]};
@@ -63,9 +73,12 @@ function TagInput({ tags, onAddTag, onRemoveTag }) {
         <TagButtonsSection>
           {tags.map((tag) => (
             <Tag key={`tag-${tag}`}>
-              {tag}
-              <DeleteButton>
-                <CloseIcon onClick={() => onRemoveTag(tag)} />
+              <TagText>{tag}</TagText>
+              <DeleteButton
+                aria-label={`${tag} 태그 삭제`}
+                onClick={() => onRemoveTag(tag)}
+              >
+                <CloseIcon />
               </DeleteButton>
             </Tag>
           ))}
