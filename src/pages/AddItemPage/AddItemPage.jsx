@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Button,
   Container,
@@ -12,7 +12,7 @@ const TitleSection = styled(FlexContainer)`
   margin-bottom: 16px;
 `;
 
-const InputSection = styled.form`
+const InputSection = styled.div`
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -23,6 +23,11 @@ const InputSection = styled.form`
 `;
 
 function AddItemPage() {
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+  const [price, setPrice] = useState("");
+  const [tag, setTag] = useState("");
+
   return (
     <Container>
       <form>
@@ -35,12 +40,16 @@ function AddItemPage() {
           <InputItem
             id="name"
             label="상품명"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
             placeholder="상품명을 입력해 주세요"
           />
 
           <InputItem
             id="description"
             label="상품 소개"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
             placeholder="상품 소개를 입력해 주세요"
             isTextArea
           />
@@ -48,10 +57,18 @@ function AddItemPage() {
           <InputItem
             id="price"
             label="판매 가격"
+            value={price}
+            onChange={(e) => setPrice(e.target.value)}
             placeholder="판매 가격을 입력해 주세요"
           />
 
-          <InputItem id="tag" label="태그" placeholder="태그를 입력해 주세요" />
+          <InputItem
+            id="tag"
+            label="태그"
+            value={tag}
+            onChange={(e) => setTag(e.target.value)}
+            placeholder="태그를 입력해 주세요"
+          />
         </InputSection>
       </form>
     </Container>

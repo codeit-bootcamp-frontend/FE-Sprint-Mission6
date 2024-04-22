@@ -43,14 +43,24 @@ const TextArea = styled.textarea`
   resize: none; // 우측 하단 코너의 textarea 영역 크기 조절 기능을 없애줍니다
 `;
 
-function InputItem({ id, label, placeholder, isTextArea }) {
+function InputItem({ id, label, value, onChange, placeholder, isTextArea }) {
   return (
     <div>
       <Label htmlFor={id}>{label}</Label>
       {isTextArea ? (
-        <TextArea id={id} placeholder={placeholder} />
+        <TextArea
+          id={id}
+          value={value}
+          onChange={onChange}
+          placeholder={placeholder}
+        />
       ) : (
-        <InputField id={id} placeholder={placeholder} />
+        <InputField
+          id={id}
+          value={value}
+          onChange={onChange}
+          placeholder={placeholder}
+        />
       )}
     </div>
   );
