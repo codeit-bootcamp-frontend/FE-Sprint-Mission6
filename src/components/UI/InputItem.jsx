@@ -41,11 +41,38 @@ const InputField = styled.input`
   }
 `;
 
-function InputItem({ id, label, placeholder }) {
+const TextArea = styled.textarea`
+  padding: 16px 24px;
+  background-color: ${({ theme }) => theme.colors.gray[1]};
+  color: ${({ theme }) => theme.colors.black};
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  line-height: 24px;
+  width: 100%;
+  height: 200px; // 디자인에 맞춰 textarea 영역의 기본 높이를 설정해 주세요
+  resize: none; // 우측 하단 코너의 textarea 영역 크기 조절 기능을 없애줍니다
+
+  &::placeholder {
+    color: ${({ theme }) => theme.colors.gray[0]};
+    font-size: 16px;
+    line-height: 24px;
+  }
+
+  &:focus {
+    outline-color: ${({ theme }) => theme.colors.blue[0]};
+  }
+`;
+
+function InputItem({ id, label, placeholder, isTextArea }) {
   return (
     <InputContainer>
       <Label htmlFor={id}>{label}</Label>
-      <InputField id={id} placeholder={placeholder} />
+      {isTextArea ? (
+        <TextArea id={id} placeholder={placeholder} />
+      ) : (
+        <InputField id={id} placeholder={placeholder} />
+      )}
     </InputContainer>
   );
 }

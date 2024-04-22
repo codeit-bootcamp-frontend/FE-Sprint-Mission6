@@ -27,6 +27,13 @@ function AddItemPage() {
       />
 
       <InputItem
+        id="description"
+        label="상품 소개"
+        placeholder="상품 소개를 입력해 주세요"
+        isTextArea
+      />
+
+      <InputItem
         id="price"
         label="판매 가격"
         placeholder="판매 가격을 입력해 주세요"
