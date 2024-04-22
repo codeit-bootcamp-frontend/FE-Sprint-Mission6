@@ -8,6 +8,7 @@ import {
 import styled from "styled-components";
 import InputItem from "../../components/UI/InputItem";
 import TagInput from "../../components/UI/TagInput";
+import ImageUpload from "../../components/UI/ImageUpload";
 
 const TitleSection = styled(FlexContainer)`
   margin-bottom: 16px;
@@ -49,6 +50,8 @@ function AddItemPage() {
         </TitleSection>
 
         <InputSection>
+          <ImageUpload title="상품 이미지" />
+
           <InputItem
             id="name"
             label="상품명"

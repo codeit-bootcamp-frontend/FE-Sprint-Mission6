@@ -22,7 +22,7 @@ const inputStyle = css`
   }
 `;
 
-const Label = styled.label`
+export const Label = styled.label`
   display: block;
   font-size: 14px;
   font-weight: bold;
@@ -54,7 +54,7 @@ function InputItem({
 }) {
   return (
     <div>
-      <Label htmlFor={id}>{label}</Label>
+      {label && <Label htmlFor={id}>{label}</Label>}
       {isTextArea ? (
         <TextArea
           id={id}
