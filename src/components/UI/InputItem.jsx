@@ -43,7 +43,15 @@ const TextArea = styled.textarea`
   resize: none; // 우측 하단 코너의 textarea 영역 크기 조절 기능을 없애줍니다
 `;
 
-function InputItem({ id, label, value, onChange, placeholder, isTextArea }) {
+function InputItem({
+  id,
+  label,
+  value,
+  onChange,
+  placeholder,
+  onKeyDown,
+  isTextArea,
+}) {
   return (
     <div>
       <Label htmlFor={id}>{label}</Label>
@@ -59,6 +67,7 @@ function InputItem({ id, label, value, onChange, placeholder, isTextArea }) {
           id={id}
           value={value}
           onChange={onChange}
+          onKeyDown={onKeyDown} // `onKeyPress` 이벤트는 리액트에서 더이상 지원되지 않기 때문에(deprecated) `onKeyDown` 또는 `onKeyUp`을 사용해 주세요
           placeholder={placeholder}
         />
       )}

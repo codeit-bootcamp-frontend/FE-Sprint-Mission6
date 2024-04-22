@@ -7,6 +7,7 @@ import {
 } from "../../styles/CommonStyles";
 import styled from "styled-components";
 import InputItem from "../../components/UI/InputItem";
+import TagInput from "../../components/UI/TagInput";
 
 const TitleSection = styled(FlexContainer)`
   margin-bottom: 16px;
@@ -26,7 +27,18 @@ function AddItemPage() {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
-  const [tag, setTag] = useState("");
+  const [tags, setTags] = useState([]);
+
+  // 중복 등록 막기 위해 tags 배열에 없는 것 확인하고 삽입
+  const addTag = (tag) => {
+    if (!tags.includes(tag)) {
+      setTags([...tags, tag]);
+    }
+  };
+
+  const removeTag = (tagToRemove) => {
+    setTags(tags.filter((tag) => tag !== tagToRemove));
+  };
 
   return (
     <Container>
@@ -62,13 +74,7 @@ function AddItemPage() {
             placeholder="판매 가격을 입력해 주세요"
           />
 
-          <InputItem
-            id="tag"
-            label="태그"
-            value={tag}
-            onChange={(e) => setTag(e.target.value)}
-            placeholder="태그를 입력해 주세요"
-          />
+          <TagInput tags={tags} onAddTag={addTag} onRemoveTag={removeTag} />
         </InputSection>
       </form>
     </Container>
