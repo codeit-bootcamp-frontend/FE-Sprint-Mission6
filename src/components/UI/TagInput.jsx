@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import InputItem from "./InputItem";
-import { ReactComponent as CloseIcon } from "../../assets/images/icons/ic_x.svg";
 import { FlexContainer } from "../../styles/CommonStyles";
+import DeleteButton from "./DeleteButton";
 
 const TagButtonsSection = styled.div`
   display: flex;
@@ -22,26 +22,12 @@ const Tag = styled(FlexContainer)`
 const TagText = styled.span`
   font-size: 16px;
   line-height: 24px;
+  margin-right: 8px;
   max-width: calc(100% - 28px); // DeleteButton 너비 및 margin을 제외한 공간
-  /* 태그의 텍스트가 너무 길어 한 줄 내에 표시하기 어려운 경우 말줌임 처리 */
+  /* 태그의 텍스트가 너무 길어 한 줄 내에 표시하기 어려운 경우 말줄임 처리 */
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-`;
-
-const DeleteButton = styled.button`
-  background-color: ${({ theme }) => theme.colors.gray[0]};
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-left: 8px; // 태그 텍스트와 삭제 버튼 사이 공간 확보
-
-  &:hover {
-    background-color: ${({ theme }) => theme.colors.blue[0]};
-  }
 `;
 
 function TagInput({ tags, onAddTag, onRemoveTag }) {
@@ -81,12 +67,11 @@ function TagInput({ tags, onAddTag, onRemoveTag }) {
           {tags.map((tag) => (
             <Tag key={`tag-${tag}`}>
               <TagText>{tag}</TagText>
+
               <DeleteButton
-                aria-label={`${tag} 태그 삭제`}
                 onClick={() => onRemoveTag(tag)}
-              >
-                <CloseIcon />
-              </DeleteButton>
+                label={`${tag} 태그`}
+              />
             </Tag>
           ))}
         </TagButtonsSection>
