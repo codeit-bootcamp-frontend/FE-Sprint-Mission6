@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Label } from "./InputItem";
 import styled, { css } from "styled-components";
 import { ReactComponent as PlusIcon } from "../../assets/images/icons/ic_plus.svg";
+import DeleteButton from "./DeleteButton";
 
 const ImageUploadContainer = styled.div`
   display: flex;
@@ -55,8 +56,15 @@ const ImagePreview = styled.div`
   background-image: url(${({ src }) => src});
   background-size: cover;
   background-position: center;
+  position: relative; // DeleteButton 포지셔닝을 위해 추가
 
   ${squareStyles}
+`;
+
+const DeleteButtonWrapper = styled.div`
+  position: absolute;
+  top: 12px;
+  right: 12px;
 `;
 
 // 브라우저 기본 '파일 선택' 버튼 대신 커스텀 버튼을 사용하기 위해 file input을 숨김 처리
@@ -74,6 +82,10 @@ function ImageUpload({ title }) {
       const imageUrl = URL.createObjectURL(file);
       setImagePreviewUrl(imageUrl);
     }
+  };
+
+  const handleDelete = () => {
+    setImagePreviewUrl(""); // 미리보기 URL 리셋
   };
 
   return (
@@ -95,7 +107,13 @@ function ImageUpload({ title }) {
         />
 
         {/* 업로드된 이미지가 있으면 썸네일 렌더링 */}
-        {imagePreviewUrl && <ImagePreview src={imagePreviewUrl} />}
+        {imagePreviewUrl && (
+          <ImagePreview src={imagePreviewUrl}>
+            <DeleteButtonWrapper>
+              <DeleteButton onClick={handleDelete} label="이미지 파일" />
+            </DeleteButtonWrapper>
+          </ImagePreview>
+        )}
       </ImageUploadContainer>
     </div>
   );
