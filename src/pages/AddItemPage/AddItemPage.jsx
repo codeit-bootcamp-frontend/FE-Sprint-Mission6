@@ -41,12 +41,17 @@ function AddItemPage() {
     setTags(tags.filter((tag) => tag !== tagToRemove));
   };
 
+  // form 제출 버튼 활성화 조건: 이미지 제외 모든 input에 값이 입력되어야 함
+  const isSubmitDisabled = !name || !description || !price || !tags.length;
+
   return (
     <Container>
       <form>
         <TitleSection>
           <SectionTitle>상품 등록하기</SectionTitle>
-          <Button type="submit">등록</Button>
+          <Button type="submit" disabled={isSubmitDisabled}>
+            등록
+          </Button>
         </TitleSection>
 
         <InputSection>
